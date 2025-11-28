@@ -309,7 +309,7 @@ section{
     height: 28px;
     display: inline-block;
     fill: currentColor;
-    animation: float-gentle 3.6s ease-in-out infinite;
+    animation: float-gentle 3s ease-in-out infinite;
 }
 
 .section-header .section-title{
@@ -441,15 +441,30 @@ section{
 /* allow JS-driven transforms to be smooth; JS will set transition durations per-step */
 .quicklink{
     will-change: transform;
+    width: 20%;
+    text-decoration: none;
+    color: var(--color-secondary);
 }
 
-.quicklink{
-    background-color: var(--color-primary);
-    width: 20%;
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius);
-    position: relative;
-    overflow: hidden;
+@media (min-width: 992px) {
+    .quicklink{
+        background-color: white;
+        padding: var(--spacing-md);
+        border-radius: var(--border-radius);
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-sm);
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--spacing-md);
+    }
+
+    .quicklink:hover{
+        background-color: var(--color-bg-secondary);
+    }
 }
 
 /* keep quicklink contents above the animated overlay */
@@ -462,8 +477,36 @@ section{
     display: none;
 }
 
+@media (min-width: 992px) {
+    .quicklink .title{
+        display: inline-block;
+        margin-top: var(--spacing-md);
+        font-size: 1rem;
+        font-weight: 600;
+    }
+}
+
+.quicklink .icon{
+    width: 100%;
+    background-color: var(--color-primary);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+@media (min-width: 992px) {
+    .quicklink .icon{
+        width: 50px;
+    }
+}
+
 .quicklink .icon svg{
     fill: white;
+    max-width: 34px;
 }
 
 /* Mobile sidebar styles (only for .mobile-sidebar related rules) */
@@ -482,6 +525,12 @@ section{
     z-index: 1200;
     padding: 1rem 0.75rem;
     overflow-y: auto;
+}
+
+@media (min-width: 992px) {
+    .mobile-sidebar{
+        display: none;
+    }
 }
 
 .mobile-sidebar.open,
@@ -592,11 +641,6 @@ section{
 .mobile-section-toggle[aria-expanded="true"] + .mobile-submenu{
     max-height: 420px; /* roomy enough for submenu */
     opacity:1;
-}
-
-/* Desktop: show sidebar inline and hide menu toggle */
-@media (min-width: 992px){
-    .mobile-sidebar{ position: static; transform:none; width:auto; max-width:none; box-shadow:none; padding:0; }
 }
 
 /* Overlay shown when mobile sidebar is open */
