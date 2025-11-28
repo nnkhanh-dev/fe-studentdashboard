@@ -416,3 +416,52 @@ section{
 .notification + .notification{
     margin-top: var(--spacing-sm);
 }
+
+.list-quicklink{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--spacing-sm);
+    width: 100%;
+}
+
+/* Domino translate effect: every `--domino-gap` each child triggers once in sequence */
+.list-quicklink{
+    /* wave timing variables */
+    --wave-cycle: 2s; /* full cycle duration */
+    --wave-gap: calc(var(--wave-cycle) / 2); /* phase offset between adjacent items => opposite signs */
+    --wave-count: 5; /* fallback, overridden by JS */
+}
+
+/* WAVE mode: soft vertical wave across items (use `list-quicklink.wave`) */
+.list-quicklink.wave .quicklink{
+    /* placeholder: wave is orchestrated by JS so no CSS animation here */
+    /* keep this selector so devs can override with CSS if desired */
+}
+
+/* allow JS-driven transforms to be smooth; JS will set transition durations per-step */
+.quicklink{
+    will-change: transform;
+}
+
+.quicklink{
+    background-color: var(--color-primary);
+    width: 20%;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+}
+
+/* keep quicklink contents above the animated overlay */
+.quicklink > *{
+    position: relative;
+    z-index: 1;
+}
+
+.quicklink .title{
+    display: none;
+}
+
+.quicklink .icon svg{
+    fill: white;
+}
