@@ -508,6 +508,7 @@ section{
 .quicklink .icon svg{
     fill: white;
     max-width: 34px;
+    width: 34px;
 }
 
 /* Mobile sidebar styles (only for .mobile-sidebar related rules) */
