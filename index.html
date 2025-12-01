@@ -244,10 +244,60 @@
                     </div>
                     <div class="menu-toggle d-lg-none"></div>
                     <div class="d-none d-lg-block">
-                        hello
+                        <div>
+                            <form class="search-form" action="/search" method="post" role="search" aria-label="Tìm kiếm">
+                                <label for="search-query" class="sr-only">Tìm kiếm</label>
+                                <div class="search-input-wrap">
+                                    <input id="search-query" name="query" type="search" class="search-input" placeholder="Tìm kiếm..." aria-label="Tìm kiếm">
+                                    <button type="submit" class="search-btn" aria-label="Tìm kiếm">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm8.707 15.293-4.387-4.387" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="d-none d-lg-block">
-                        hello
+                        <div class="d-flex flex-row justify-content-between align-items-center header-actions" style="width:100%">
+                            <div class="header-left"></div>
+                            <div class="header-right d-flex align-items-center" style="gap:12px">
+                                <!-- Notifications -->
+                                <div class="notif-wrap">
+                                    <button class="notif-btn" aria-haspopup="true" aria-expanded="false" aria-label="Thông báo">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                            <path d="M320 64C302.3 64 288 78.3 288 96L288 99.2C215 114 160 178.6 160 256L160 277.7C160 325.8 143.6 372.5 113.6 410.1L103.8 422.3C98.7 428.6 96 436.4 96 444.5C96 464.1 111.9 480 131.5 480L508.4 480C528 480 543.9 464.1 543.9 444.5C543.9 436.4 541.2 428.6 536.1 422.3L526.3 410.1C496.4 372.5 480 325.8 480 277.7L480 256C480 178.6 425 114 352 99.2L352 96C352 78.3 337.7 64 320 64zM258 528C265.1 555.6 290.2 576 320 576C349.8 576 374.9 555.6 382 528L258 528z"/>
+                                        </svg>
+                                        <span class="notif-count">3</span>
+                                    </button>
+                                    <div class="notif-panel" role="region" aria-label="Thông báo gần đây">
+                                        <ul>
+                                            <li><a href="#">[24/11] Thông báo đăng ký thi bổ sung</a></li>
+                                            <li><a href="#">[20/11] Thông báo thời khóa biểu</a></li>
+                                            <li><a href="#">[15/11] Cập nhật điểm học phần</a></li>
+                                        </ul>
+                                        <div class="notif-footer"><a href="#">Xem tất cả thông báo</a></div>
+                                    </div>
+                                </div>
+
+                                <!-- Profile / Avatar -->
+                                <div class="profile-wrap">
+                                    <button class="profile-btn" aria-haspopup="true" aria-expanded="false" type="button">
+                                        <img src="https://avatars.githubusercontent.com/u/139336684?v=4" alt="Avatar" class="profile-avatar">
+                                    </button>
+                                    <div class="profile-panel" role="region" aria-label="Thông tin người dùng">
+                                        <div class="profile-info">
+                                            <strong>Nguyễn Nhật Khánh</strong>
+                                            <div class="muted">Sinh viên - K61</div>
+                                        </div>
+                                        <div class="profile-links">
+                                            <a href="#">Tài khoản</a>
+                                            <a href="#">Đăng xuất</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </header>
                 <main>
@@ -596,5 +646,55 @@
             });
         })();
     </script>
+        <script>
+            // Notifications & profile panels: click-to-toggle behaviour
+            (function(){
+                const notifWrap = document.querySelector('.notif-wrap');
+                const notifBtn = notifWrap ? notifWrap.querySelector('.notif-btn') : null;
+                const profileWrap = document.querySelector('.profile-wrap');
+                const profileBtn = profileWrap ? profileWrap.querySelector('.profile-btn') : null;
+
+                function closeAll(){
+                    if(notifWrap){ notifWrap.classList.remove('open'); if(notifBtn) notifBtn.setAttribute('aria-expanded','false'); }
+                    if(profileWrap){ profileWrap.classList.remove('open'); if(profileBtn) profileBtn.setAttribute('aria-expanded','false'); }
+                }
+
+                if(notifBtn && notifWrap){
+                    notifBtn.addEventListener('click', function(ev){
+                        ev.stopPropagation();
+                        const now = notifWrap.classList.toggle('open');
+                        notifBtn.setAttribute('aria-expanded', String(now));
+                        // close profile if open
+                        if(now && profileWrap){ profileWrap.classList.remove('open'); if(profileBtn) profileBtn.setAttribute('aria-expanded','false'); }
+                    });
+                }
+
+                if(profileBtn && profileWrap){
+                    profileBtn.addEventListener('click', function(ev){
+                        ev.stopPropagation();
+                        const now = profileWrap.classList.toggle('open');
+                        profileBtn.setAttribute('aria-expanded', String(now));
+                        // close notif if open
+                        if(now && notifWrap){ notifWrap.classList.remove('open'); if(notifBtn) notifBtn.setAttribute('aria-expanded','false'); }
+                    });
+                }
+
+                // Close when clicking outside
+                document.addEventListener('click', function(e){
+                    if(notifWrap && !notifWrap.contains(e.target)){
+                        notifWrap.classList.remove('open'); if(notifBtn) notifBtn.setAttribute('aria-expanded','false');
+                    }
+                    if(profileWrap && !profileWrap.contains(e.target)){
+                        profileWrap.classList.remove('open'); if(profileBtn) profileBtn.setAttribute('aria-expanded','false');
+                    }
+                });
+
+                // Escape closes panels
+                document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeAll(); });
+
+                // Hide panels on mobile resize
+                window.addEventListener('resize', function(){ if(window.matchMedia('(max-width: 991px)').matches) closeAll(); });
+            })();
+        </script>
 </body>
 </html>
