@@ -58,6 +58,15 @@ html, body {
     color: var(--color-text);
 }
 
+body, html {
+    overflow-y: scroll;         /* vẫn cho cuộn */
+    scrollbar-width: none;      /* Firefox */
+}
+
+body::-webkit-scrollbar, html::-webkit-scrollbar {
+    display: none;              /* Chrome, Edge, Safari */
+}
+
 /* =====================================
    BASE ELEMENTS
    ===================================== */
@@ -97,6 +106,10 @@ a {
 
 ul, ol {
     list-style: none;
+}
+
+main{
+    height: 100vh;
 }
 
 /* =====================================
@@ -150,6 +163,10 @@ header{
 }
 
 .logo{
+    width: 100%;
+}
+
+.logo img{
     width: 100%;
 }
 
@@ -222,6 +239,10 @@ header{
     margin-left: auto;
     position: relative;
     z-index: 1;
+}
+
+.banner .progress{
+    max-width: 350px;
 }
 
 section{
@@ -658,4 +679,110 @@ section{
 .mobile-overlay.show{
     opacity: 1;
     pointer-events: auto;
+}
+
+/* =====================================
+   Desktop sidebar (adapted from mobile-sidebar styles)
+   Applies to `.sidebar` used in the left column on wide screens
+   ===================================== */
+
+.sidebar{
+    display: none;
+}
+
+@media (min-width: 992px){
+    .sidebar{
+        padding: 1rem 0.5rem;
+        height: 100vh;
+        position: sticky;
+        top: 1rem;
+        align-self: flex-start;
+        border-radius: 12px;
+        display: block;
+    }
+
+    .nav{ list-style:none; padding: 0; margin: 0; position: relative; overflow-x: auto; overflow-y: auto;}
+    .nav a{ 
+        color: var(--color-text); 
+        display:block; 
+        text-decoration: none;
+    }
+
+    .nav-section{ 
+        min-width: 100%;
+        margin-bottom: 0.25rem; 
+    }
+    .nav-section-toggle{
+        width:100%;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:0.5rem;
+        padding:0.6rem 0.5rem;
+        border:none;
+        background:transparent;
+        cursor:pointer;
+        font-weight:600;
+        color:var(--color-secondary);
+        border-radius: 8px;
+        transition: background 160ms ease, color 160ms ease;
+    }
+    .nav-section-toggle:hover{ background: rgba(59,130,246,0.04); }
+
+    .nav-section-title{ 
+        display:inline-block; 
+        text-align: left;
+        text-wrap: nowrap;
+    }
+    .nav-section-icon{ transition: transform 220ms ease; }
+    .nav-section-toggle[aria-expanded="true"] .nav-section-icon{ transform: rotate(180deg); color: var(--color-primary); }
+    
+        /* nav-submenu is closed by default; opens when the previous toggle has aria-expanded=true */
+        .nav-submenu{
+            list-style:none;
+            padding-left: 0.9rem;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 260ms ease, opacity 200ms ease;
+        }
+        .nav-section-toggle[aria-expanded="true"] + .nav-submenu{
+            max-height: 420px;
+            opacity: 1;
+        }
+    
+        .nav-section-icon{ transition: transform 220ms ease, color 160ms ease; display:inline-flex; align-items:center; }
+        .nav-section-icon svg{ width:0.9rem; height:0.9rem; fill: var(--color-text-muted); }
+        .nav-section-toggle[aria-expanded="true"] .nav-section-icon{ transform: rotate(180deg); }
+        .nav-section-toggle[aria-expanded="true"] .nav-section-icon svg{ fill: var(--color-primary); }
+
+    .nav-submenu{ list-style:none; padding-left: 0.9rem;}
+    .nav-submenu li{
+         padding: 0.25rem; 
+    }
+    .nav-submenu li:hover{
+        background: rgba(59,130,246,0.04);
+    }
+    .nav-submenu a{ color: var(--color-text); padding-left: 0.25rem; display:block; }
+    .nav-submenu a:hover{ color: var(--color-secondary); }
+
+    .nav-link{
+        min-width: 100%;
+        margin-bottom: 0.25rem;
+        padding: 0.6rem 0.5rem !important;
+        border-radius: 8px;
+    }
+
+    .nav-link a{
+        display: inline-block;
+        text-align: left;
+        text-wrap: nowrap;
+        color: var(--color-secondary);
+        font-weight: 600;
+    }
+
+    .nav-link:hover{
+        background: rgba(59,130,246,0.04);
+    }
+   
 }
