@@ -56,16 +56,10 @@ html, body {
     font-size: var(--font-size-base);
     background-color: var(--color-bg-secondary);
     color: var(--color-text);
-    overflow-y: scroll;         /* vẫn cho cuộn */
-    scrollbar-width: none;   
 }
 
 body{
-    height: 100vh !important;  
-}
-
-body::-webkit-scrollbar, html::-webkit-scrollbar {
-    display: none;              /* Chrome, Edge, Safari */
+    min-height: 100vh;
 }
 
 /* =====================================
@@ -110,7 +104,24 @@ ul, ol {
 }
 
 main{
-    height: 100vh;
+    /* main should not force the page height; the content column will manage internal scrolling */
+    min-height: 0;
+}
+
+/* Layout: keep header + main inside the right content column sized to viewport
+   so that only `main` scrolls internally and html/body avoid an extra scrollbar. */
+.col-12.col-lg-10.background-secondary {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* keep a fixed column height so it can scroll internally when needed */
+    /* do not force overflow here — allow utility classes like `.overflow-auto` to control scrolling */
+}
+.col-12.col-lg-10.background-secondary > header {
+    flex: 0 0 auto; /* header keeps its natural height */
+}
+.col-12.col-lg-10.background-secondary > main {
+    flex: 1 1 auto; /* main fills remaining space */
+    /* do not force internal scrolling here; scrolling will be handled by the column when `.overflow-auto` is present */
 }
 
 /* =====================================
@@ -768,6 +779,7 @@ section{
 
 @media (min-width: 992px){
     .sidebar{
+        padding-top: 1rem;
         height: 100vh;
         position: sticky;
         top: 1rem;
