@@ -176,6 +176,7 @@ header{
 
 .logo{
     width: 100%;
+    padding-right: 1rem;
 }
 
 .logo img{
@@ -571,8 +572,12 @@ section{
     }
 
     .quicklink:hover{
-        background-color: rgba(0, 0, 0, 0.02);
+        color: var(--color-primary);
         border-left: 4px solid var(--color-primary);
+    }
+
+    .quicklink:hover .icon svg{
+        transform: translateY(-3px);
     }
 }
 
@@ -617,6 +622,7 @@ section{
     fill: white;
     max-width: 34px;
     width: 34px;
+    transition: transform 0.3s ease;
 }
 
 /* Mobile sidebar styles (only for .mobile-sidebar related rules) */
@@ -852,7 +858,8 @@ section{
 
     .nav-submenu{ list-style:none; padding-left: 0.9rem;}
     .nav-submenu li{
-         padding: 0.25rem; 
+         padding: 0.5rem 0.25rem; 
+         border-radius: var(--border-radius);
     }
     .nav-submenu li:hover{
         background: rgba(59,130,246,0.04);
@@ -1074,7 +1081,7 @@ section{
 }
 
 .main-news::after{
-    content: '🔥 Mới nhất';
+    content: '⭐ Mới nhất';
     position: absolute;
     top: 10px;
     left: 10px;
@@ -1082,7 +1089,7 @@ section{
     align-items: center;
     gap: 6px;
     padding: var(--spacing-xs) var(--spacing-sm);
-    background: linear-gradient(135deg, rgba(255, 241, 134, 0.95), rgba(226, 155, 3, 0.95));
+    background: linear-gradient(135deg, rgba(251, 244, 105, 0.95), rgba(252, 65, 32, 0.95));
     color: white;
     border-radius: var(--border-radius);
     font-weight: 600;
