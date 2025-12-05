@@ -597,8 +597,20 @@ section{
         margin-top: var(--spacing-md);
         font-size: 1rem;
         font-weight: 600;
+        width: 100%;
     }
 }
+
+@media (min-width: 1450px) {
+    .quicklink .title{
+        display: inline-block;
+        margin-top: var(--spacing-md);
+        font-size: 1rem;
+        font-weight: 600;
+        width: initial;
+    }
+}
+
 
 .quicklink .icon{
     width: 100%;
@@ -1081,7 +1093,7 @@ section{
 }
 
 .main-news::after{
-    content: '⭐ Mới nhất';
+    content: '📢 Mới nhất';
     position: absolute;
     top: 10px;
     left: 10px;
@@ -1089,7 +1101,7 @@ section{
     align-items: center;
     gap: 6px;
     padding: var(--spacing-xs) var(--spacing-sm);
-    background: linear-gradient(135deg, rgba(251, 244, 105, 0.95), rgba(252, 65, 32, 0.95));
+    background: linear-gradient(135deg, rgba(255, 245, 138, 0.95), rgba(247, 237, 45, 0.95));
     color: white;
     border-radius: var(--border-radius);
     font-weight: 600;
